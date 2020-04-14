@@ -1,5 +1,7 @@
 
 import timeit
+from collections import Counter
+from itertools import zip_longest
 
 def solution(value):
     lenth = int(value.pop(0))
@@ -31,13 +33,49 @@ def solution(value):
 
     return print(answer)
 
+def solution2(values):
+    lenth = int(values.pop(0))
+
+    for i in range(lenth):
+        values[i] = values[i][::-1]
+
+    values = sorted(values, key=len, reverse=True)
+    max_lenth = len(values[0])
+
+    result = []
+    for value in values:
+        result+=Counter(value)
+
+    start_num = 10-len(result)+1
+    word_dict = {}
+
+    for i in range(max_lenth):
+        for j in range(lenth):
+            try:
+                if values[j][i].isdigit() == False:
+                    if values[j][i] not in word_dict:
+                        word_dict[values[j][i]] = start_num
+                        values[j] = values[j].replace(values[j][i], str(start_num))
+                        start_num+=1
+                    else:
+                        values[j] = values[j].replace(values[j][i], str(word_dict[values[j][i]]))
+            except IndexError:
+                pass
+
+    for i in range(lenth):
+        values[i] = values[i][::-1]
+
+    answer = 0
+    for i in values:
+        answer+= int(i)
+    print(answer)
 
 def input_value():
     value = \
     """
     2
-AAA
-AAA
+GCF
+ACDEB
     """
     return value.replace(" ", "").strip().split("\n")
 
@@ -52,6 +90,6 @@ AAA
 if __name__ == "__main__":
     start_time = timeit.default_timer()
     input_value = input_value()
-    solution(input_value)
+    solution2(input_value)
     stop_time = timeit.default_timer()
     print(f"-------{round(stop_time-start_time, 7)} seconds-------")
