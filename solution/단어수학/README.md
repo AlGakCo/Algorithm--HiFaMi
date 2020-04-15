@@ -58,7 +58,16 @@ def solution(value):
     return print(answer)
 ```
 
-`solution2`
+`Run Time`
+```bash
+-------0.0001608 seconds-------
+-------0.0001397 seconds-------
+-------0.000104 seconds-------
+-------0.0001528 seconds-------
+```
+
+
+`solution2` --Fail
 ```python
 def solution2(values):
     lenth = int(values.pop(0))
@@ -99,3 +108,54 @@ def solution2(values):
 ```
 `solution2`의 경우 뒤부터 `reverse`하여 계산하도록 했지만 이럴경우 만약 10의 자리의 값과 1000의 자리의
 값과 같다면 10의 자리의 낮은 값으로 1000의 자리의 값이 결정되기 때문에 `solution2`의 경우는 실패하게 된다.
+
+`solution2_1`
+```python
+def solution2_1(values):
+    lenth = int(values.pop(0))
+
+    for i in range(lenth):
+        values[i] = values[i][::-1]
+
+    values = sorted(values, key=len, reverse=True)
+    max_lenth = len(values[0])
+
+    result = []
+    for value in values:
+        result+=Counter(value)
+
+    start_num = 9
+    word_dict = {}
+
+    for i in reversed(range(max_lenth)):
+        for j in range(lenth):
+            try:
+                if values[j][i].isdigit() == False:
+                    if values[j][i] not in word_dict:
+                        word_dict[values[j][i]] = start_num
+                        values[j] = values[j].replace(values[j][i], str(start_num))
+                        start_num-=1
+                    else:
+                        values[j] = values[j].replace(values[j][i], str(word_dict[values[j][i]]))
+            except IndexError:
+                pass
+
+    for i in range(lenth):
+        values[i] = values[i][::-1]
+
+    answer = 0
+    for i in values:
+        answer+= int(i)
+    print(answer)
+```
+`Run Time`
+```bash
+-------0.0002041 seconds-------
+-------0.0002122 seconds-------
+-------0.0002383 seconds-------
+-------0.0002049 seconds-------
+```
+
+위의 `solution2`의 경우가 앞에서부터 낮은 숫자를 넣어 실패하여 `solution2_1`의 경우에는 `for`문장에서의
+`range`에 `reversed`를 이용하여 역순으로 값을 가져오도록 하고 그에따라 큰 값, 즉 9부터 줄어 들게끔 하여
+이상없이 나오도록 하였다.

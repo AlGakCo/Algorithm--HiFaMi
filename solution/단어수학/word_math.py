@@ -113,6 +113,7 @@ def input_value():
     2
 AB
 BA
+
     """
     return value.replace(" ", "").strip().split("\n")
 
