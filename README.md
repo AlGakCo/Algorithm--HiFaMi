@@ -8,3 +8,4 @@
 - 6주차(Programmers) [가장 큰 수](https://programmers.co.kr/learn/courses/30/lessons/42746)
 - 7주차(Programmers) [소수찾기](https://programmers.co.kr/learn/courses/30/parts/12230)
 - 8주차(Programmers) [숫자야구](https://programmers.co.kr/learn/courses/30/lessons/42841)
+- 9주차(Pragrammers) [카펫](https://programmers.co.kr/learn/courses/30/lessons/42842)
