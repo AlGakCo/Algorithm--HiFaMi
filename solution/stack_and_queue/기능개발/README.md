@@ -48,13 +48,10 @@ def solution(progresses, speeds):
             date+=1
         end_date[i] = date
     
-    print(end_date)
-    
-    
     date = 1
     value = end_date.popleft()
     while end_date:
-        if value > end_date[0]:
+        if value >= end_date[0]:
             date+=1
             end_date.popleft()
 
